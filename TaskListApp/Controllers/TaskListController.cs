@@ -82,10 +82,10 @@ namespace TaskListApp.Controllers
         public IActionResult TaskList(string search, string complete)
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<Tasks> tasks = _context.Tasks.Where(x => true).ToList();
+            List<Tasks> tasks = _context.Tasks.Where(x => x.User.Equals(id)).ToList();
             if (!string.IsNullOrEmpty(search))
             {
-                tasks = _context.Tasks.Where(x => x.User.Equals(id) && x.Description.ToLower().Contains(search.ToLower())).ToList();
+                tasks = _context.Tasks.Where(x => x.Description.ToLower().Contains(search.ToLower())).ToList();
             }
             if (complete != "donotfilter")
             {
