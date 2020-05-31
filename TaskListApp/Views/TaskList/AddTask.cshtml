@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Add Task";
+}
+
+<form action="/TaskList/AddTask" method="post">
+    <input type="hidden" name="User" value="@ViewBag.UserId"/>
+    <input type="text" name="Description" placeholder="Description"/> <br/>
+    <input type="date" name="Due" min="@DateTime.Today.ToString("yyyy-MM-dd")" placeholder="Due Date"/> <br/>
+    <input type="hidden" name="Complete" value="false"/>
+    <input type="submit"/>
+</form>

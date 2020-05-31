@@ -1,0 +1,41 @@
+@model List<Tasks>
+
+@{
+    ViewData["Title"] = "Task List";
+}
+
+<form action="/TaskList/TaskList" method="post">
+    <input type="text" name="search" placeholder="Search query"/><br/>
+    Filter by Completion Status: <select name="complete">
+            <option value="donotfilter">Do Not Filter</option>
+            <option value="filtercomplete">Complete Only</option>
+            <option value="filterincomplete">Incomplete Only</option>
+        </select><br/>
+    <input type="submit" value="Search"/><br/>
+</form>
+<table class="table">
+    <tr>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Edit</th>
+    </tr>
+    @{
+        foreach (Tasks t in Model)
+        {
+            string date = t.Due.ToShortDateString();
+            <tr>
+                <td>@t.Description</td>
+                <td>@date</td>
+                <td>@(t.Complete ? "Complete" : "Incomplete")</td>
+                <td>
+                    <form action="/TaskList/EditTask" method="get">
+                        <input type="hidden" name="Id" value="@t.Id">
+                        <input type="submit" value="Edit Task"/>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+</table>
+

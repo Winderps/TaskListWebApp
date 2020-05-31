@@ -1,0 +1,19 @@
+@model Tasks
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<form action="/TaskList/EditTask" method="post">
+    <input type="hidden" name="Id" value="@Model.Id"/> <br/>
+    <input type="text" name="Description" value="@Model.Description"/> <br/>
+    <input type="date" name="Due" value="@Model.Due.ToString("yyyy-MM-dd")" min="@DateTime.Today.ToString("yyyy-MM-dd")"/><br/>
+    <input type="checkbox" name="Complete" @(Model.Complete ? "checked" : "") value="true"/> Complete?<br/>
+    <input type="hidden" name="Complete" value="false"/>
+    <input type="hidden" name="User" value="@Model.User"/>
+    <input type="submit"/>
+</form>
+<form action="/TaskList/DeleteTask" method="post">
+    <input type="hidden" name="Id" value="@Model.Id"/>
+    <input type="submit" value="Delete Task"/>
+</form>
